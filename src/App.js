@@ -5,12 +5,14 @@ function App() {
   const [items, setItems] = useState([]);
   const [fullTextIndex, setFullTextIndex] = useState(null);
   const [selectedText, setSelectedText] = useState(null);
-  const inputRef = useRef(null);
+  const inputRef = useRef(null); // Input elementine erişim sağlamak için referans oluştur
+
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
+ // Yeni bir öğe eklemek için kullanılan fonksiyon
   const addItem = () => {
     if (inputValue.trim() !== "") {
       setItems([...items, inputValue.trim()]);
@@ -18,17 +20,20 @@ function App() {
     }
   };
 
+  // Uzun metni göstermek veya kısaltmak için kullanılan fonksiyon
   const toggleFullText = (index, item) => {
     setFullTextIndex(fullTextIndex === index ? null : index);
     setSelectedText(fullTextIndex === index ? null : item);
   };
 
+  // Klavyeden bir tuşa basıldığında tetiklenen fonksiyon
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       addItem();
     }
   };
 
+  // Bileşenin mount unmount işlemlerini yönetmek ve input alanının taşması durumunu kontrol etmek için kullanılan hook
   useEffect(() => {
     const handleResize = () => {
       if (inputRef.current) {
